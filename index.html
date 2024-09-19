@@ -1,0 +1,98 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Muscle App</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- AOS CSS (Optional for Animations) -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container my-4">
+      <h1 class="text-center">Muscle Encyclopedia</h1>
+
+      <!-- Search Bar -->
+      <div class="my-3">
+        <input
+          type="text"
+          id="searchInput"
+          class="form-control"
+          placeholder="Search for a muscle..."
+        />
+      </div>
+
+      <!-- Categories -->
+      <div class="row my-4" id="categoriesSection">
+        <div class="col-6">
+          <div
+            class="card category-card"
+            data-category="Upper Limb"
+            data-aos="fade-up"
+          >
+            <div class="card-body text-center">
+              <h5 class="card-title">Upper Limb</h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div
+            class="card category-card"
+            data-category="Lower Limb"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            <div class="card-body text-center">
+              <h5 class="card-title">Lower Limb</h5>
+            </div>
+          </div>
+        </div>
+        <!-- Add more categories as needed -->
+      </div>
+
+      <!-- Favorites Button -->
+      <div class="text-center">
+        <a href="favorites.html" class="btn btn-primary">View Favorites</a>
+      </div>
+    </div>
+
+    <!-- Search Results Overlay -->
+    <div id="searchOverlay" class="search-overlay d-none">
+      <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Search Results</h2>
+          <button class="btn btn-secondary" id="closeSearch">Close</button>
+        </div>
+        <!-- Search Input within Overlay -->
+        <div class="my-3">
+          <input
+            type="text"
+            id="overlaySearchInput"
+            class="form-control"
+            placeholder="Search for a muscle..."
+          />
+        </div>
+        <ul class="list-group" id="searchResults"></ul>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS (Optional for Animations) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Muscles Data -->
+    <script src="js/muscles.js"></script>
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+  </body>
+</html>

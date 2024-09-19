@@ -1,0 +1,101 @@
+<!-- muscleDetails.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Muscle Details</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="container my-4">
+      <button class="btn btn-secondary mb-3" id="backButton">
+        ← Back to Home
+      </button>
+      <h2 id="muscleName"></h2>
+      <button class="btn btn-outline-primary mb-3" id="favoriteBtn">
+        Add to Favorites
+      </button>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Origin:</strong> <span id="origin"></span>
+        </li>
+        <li class="list-group-item">
+          <strong>Insertion:</strong> <span id="insertion"></span>
+        </li>
+        <li class="list-group-item">
+          <strong>Nerve Supply:</strong> <span id="nerveSupply"></span>
+        </li>
+        <li class="list-group-item">
+          <strong>Function:</strong> <span id="function"></span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Bootstrap JS and Dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Muscles Data -->
+    <script src="js/muscles.js"></script>
+    <!-- Main JS -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const muscleName = params.get("name");
+        const muscle = muscles.find((m) => m.name === muscleName);
+
+        if (!muscle) {
+          document.body.innerHTML =
+            "<div class='container my-4'><h2>Muscle not found.</h2></div>";
+          return;
+        }
+
+        document.getElementById("muscleName").textContent = muscle.name;
+        document.getElementById("origin").textContent = muscle.origin;
+        document.getElementById("insertion").textContent = muscle.insertion;
+        document.getElementById("nerveSupply").textContent = muscle.nerveSupply;
+        document.getElementById("function").textContent = muscle.function;
+
+        const favoriteBtn = document.getElementById("favoriteBtn");
+
+        // Check if muscle is already in favorites
+        let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+        const isFavorited = favorites.includes(muscle.name);
+
+        if (isFavorited) {
+          favoriteBtn.textContent = "Remove from Favorites";
+          favoriteBtn.classList.remove("btn-outline-primary");
+          favoriteBtn.classList.add("btn-primary");
+        }
+
+        favoriteBtn.addEventListener("click", () => {
+          favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+          if (favorites.includes(muscle.name)) {
+            // Remove from favorites
+            favorites = favorites.filter((name) => name !== muscle.name);
+            favoriteBtn.textContent = "Add to Favorites";
+            favoriteBtn.classList.remove("btn-primary");
+            favoriteBtn.classList.add("btn-outline-primary");
+          } else {
+            // Add to favorites
+            favorites.push(muscle.name);
+            favoriteBtn.textContent = "Remove from Favorites";
+            favoriteBtn.classList.remove("btn-outline-primary");
+            favoriteBtn.classList.add("btn-primary");
+          }
+          localStorage.setItem("favorites", JSON.stringify(favorites));
+        });
+
+        const backButton = document.getElementById("backButton");
+        backButton.addEventListener("click", () => {
+          window.history.back(); // Go back to the previous page
+        });
+      });
+    </script>
+  </body>
+</html>
